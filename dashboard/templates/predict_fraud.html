@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Fraud</title>
+    <link rel="stylesheet" href="{% static 'css/predict.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="button-container">
+            <a href="{% url 'kpi_metrics' %}" class="navigate-button">Back to Dashboard</a>
+        </div>
+        <h2>Insurance Fraud Prediction</h2>
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="input_method">Input Method:</label>
+            <select class="form-control" id="input_method" name="input_method" required onchange="toggleInputMethod()">
+                <option value="manual">Manual Input</option>
+                <option value="file">File Upload</option>
+            </select>
+        </div>
+
+        <!-- Manual Input Form -->
+        <form method="POST" action="{% url 'predict_fraud' %}" id="manual-input">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="months_as_customer">Months as Customer:</label>
+                <input type="number" class="form-control" id="months_as_customer" name="months_as_customer" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="policy_number">Policy Number:</label>
+                <input type="number" class="form-control" id="policy_number" name="policy_number" required>
+            </div>
+            <div class="form-group">
+                <label for="policy_bind_date">Policy Bind Date:</label>
+                <input type="date" class="form-control" id="policy_bind_date" name="policy_bind_date" required>
+            </div>
+            <div class="form-group">
+                <label for="policy_state">Policy State:</label>
+                <select class="form-control" id="policy_state" name="policy_state" required>
+                    {% for state in policy_states %}
+                    <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="policy_csl">Policy CSL:</label>
+                <select class="form-control" id="policy_csl" name="policy_csl" required>
+                    {% for csl in policy_csls %}
+                    <option value="{{ csl }}">{{ csl }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="policy_deductable">Policy Deductable:</label>
+                <input type="number" class="form-control" step="0.01" id="policy_deductable" name="policy_deductable" required>
+            </div>
+            <div class="form-group">
+                <label for="policy_annual_premium">Policy Annual Premium:</label>
+                <input type="number" class="form-control" step="0.01" id="policy_annual_premium" name="policy_annual_premium" required>
+            </div>
+            <div class="form-group">
+                <label for="umbrella_limit">Umbrella Limit:</label>
+                <input type="number" class="form-control" step="0.01" id="umbrella_limit" name="umbrella_limit" required>
+            </div>
+            <div class="form-group">
+                <label for="insured_zip">Insured ZIP:</label>
+                <input type="number" class="form-control" id="insured_zip" name="insured_zip" required>
+            </div>
+            <div class="form-group">
+                <label for="insured_sex">Insured Sex:</label>
+                <select class="form-control" id="insured_sex" name="insured_sex" required>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="insured_education_level">Insured Education Level:</label>
+                <select class="form-control" id="insured_education_level" name="insured_education_level" required>
+                    {% for level in insured_education_levels %}
+                    <option value="{{ level }}">{{ level }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="insured_occupation">Insured Occupation:</label>
+                <select class="form-control" id="insured_occupation" name="insured_occupation" required>
+                    {% for occupation in insured_occupations %}
+                    <option value="{{ occupation }}">{{ occupation }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="insured_hobbies">Insured Hobbies:</label>
+                <select class="form-control" id="insured_hobbies" name="insured_hobbies" required>
+                    {% for hobby in insured_hobbies %}
+                    <option value="{{ hobby }}">{{ hobby }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="insured_relationship">Insured Relationship:</label>
+                <select class="form-control" id="insured_relationship" name="insured_relationship" required>
+                    {% for relationship in insured_relationships %}
+                    <option value="{{ relationship }}">{{ relationship }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="capital-gains">Capital Gains:</label>
+                <input type="number" class="form-control" step="0.01" id="capital-gains" name="capital-gains" required>
+            </div>
+            <div class="form-group">
+                <label for="capital-loss">Capital Loss:</label>
+                <input type="number" class="form-control" step="0.01" id="capital-loss" name="capital-loss" required>
+            </div>
+            <div class="form-group">
+                <label for="incident_date">Incident Date:</label>
+                <input type="date" class="form-control" id="incident_date" name="incident_date" required>
+            </div>
+            <div class="form-group">
+                <label for="incident_type">Incident Type:</label>
+                <select class="form-control" id="incident_type" name="incident_type" required>
+                    {% for type in incident_types %}
+                    <option value="{{ type }}">{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="collision_type">Collision Type:</label>
+                <select class="form-control" id="collision_type" name="collision_type" required>
+                    {% for type in collision_types %}
+                    <option value="{{ type }}">{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="incident_severity">Incident Severity:</label>
+                <select class="form-control" id="incident_severity" name="incident_severity" required>
+                    {% for severity in incident_severities %}
+                    <option value="{{ severity }}">{{ severity }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="authorities_contacted">Authorities Contacted:</label>
+                <select class="form-control" id="authorities_contacted" name="authorities_contacted" required>
+                    {% for authority in authorities_contacted %}
+                    <option value="{{ authority }}">{{ authority }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="incident_state">Incident State:</label>
+                <select class="form-control" id="incident_state" name="incident_state" required>
+                    {% for state in incident_states %}
+                    <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="incident_city">Incident City:</label>
+                <input type="text" class="form-control" id="incident_city" name="incident_city" required>
+            </div>
+            <div class="form-group">
+                <label for="incident_location">Incident Location:</label>
+                <input type="text" class="form-control" id="incident_location" name="incident_location" required>
+            </div>
+            <div class="form-group">
+                <label for="incident_hour_of_the_day">Incident Hour of the Day:</label>
+                <input type="number" class="form-control" id="incident_hour_of_the_day" name="incident_hour_of_the_day" required>
+            </div>
+            <div class="form-group">
+                <label for="number_of_vehicles_involved">Number of Vehicles Involved:</label>
+                <input type="number" class="form-control" id="number_of_vehicles_involved" name="number_of_vehicles_involved" required>
+            </div>
+            <div class="form-group">
+                <label for="property_damage">Property Damage:</label>
+                <select class="form-control" id="property_damage" name="property_damage" required>
+                    {% for option in property_damage_options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bodily_injuries">Bodily Injuries:</label>
+                <input type="number" class="form-control" id="bodily_injuries" name="bodily_injuries" required>
+            </div>
+            <div class="form-group">
+                <label for="witnesses">Witnesses:</label>
+                <input type="number" class="form-control" id="witnesses" name="witnesses" required>
+            </div>
+            <div class="form-group">
+                <label for="police_report_available">Police Report Available:</label>
+                <select class="form-control" id="police_report_available" name="police_report_available" required>
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="total_claim_amount">Total Claim Amount:</label>
+                <input type="number" class="form-control" step="0.01" id="total_claim_amount" name="total_claim_amount" required>
+            </div>
+            <div class="form-group">
+                <label for="injury_claim">Injury Claim:</label>
+                <input type="number" class="form-control" step="0.01" id="injury_claim" name="injury_claim" required>
+            </div>
+            <div class="form-group">
+                <label for="property_claim">Property Claim:</label>
+                <input type="number" class="form-control" step="0.01" id="property_claim" name="property_claim" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_claim">Vehicle Claim:</label>
+                <input type="number" class="form-control" step="0.01" id="vehicle_claim" name="vehicle_claim" required>
+            </div>
+            <div class="form-group">
+                <label for="auto_make">Auto Make:</label>
+                <input type="text" class="form-control" id="auto_make" name="auto_make" required>
+            </div>
+            <div class="form-group">
+                <label for="auto_model">Auto Model:</label>
+                <input type="text" class="form-control" id="auto_model" name="auto_model" required>
+            </div>
+            <div class="form-group">
+                <label for="auto_year">Auto Year:</label>
+                <input type="number" class="form-control" id="auto_year" name="auto_year" required>
+            </div>
+            
+            <div class="button-containers">
+                <input type="hidden" name="input_method" value="manual">
+                <button type="submit" class="navigate-button">Predict Fraud</button>
+            </div>
+        </form>
+
+        <!-- File Upload Form -->
+        <form method="POST" action="{% url 'predict_fraud' %}" enctype="multipart/form-data" id="file-upload" style="display: none;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="file">Upload File:</label>
+                <input type="file" class="form-control" id="file" name="file" required>
+            </div>
+            
+            <div class="button-containers">
+                <input type="hidden" name="input_method" value="file"> 
+                <button type="submit" class="navigate-button">Predict Fraud</button>
+            </div>
+        </form>
+
+
+    </div>
+
+    <script>
+        function toggleInputMethod() {
+            var inputMethod = document.getElementById("input_method").value;
+            var manualInput = document.getElementById("manual-input");
+            var fileUpload = document.getElementById("file-upload");
+
+            if (inputMethod === "manual") {
+                manualInput.style.display = "block";
+                fileUpload.style.display = "none";
+            } else {
+                manualInput.style.display = "none";
+                fileUpload.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

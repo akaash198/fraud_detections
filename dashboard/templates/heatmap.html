@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heatmap</title>
+    <style>
+        /* Reset default margin and padding for better alignment */
+        body, h1, h2, p, table {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Set a background color for the entire page */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Style the page header */
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 2px;
+            text-align: center;
+        }
+
+        /* Center the table on the page */
+        table {
+            margin: 20px auto;
+            border-collapse: separate;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the table header row */
+        th {
+            background-color: rgb(8, 8, 65);
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Style the table body rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style the table body cells */
+        td {
+            padding: 5px;
+            margin: 2px;
+            text-align: center;
+            font-size: 13px; /* Adjust font size as needed */
+            border-spacing: 5px;
+        }
+
+        /* Style the "anomaly" class, which highlights cells in red */
+        .heatmap-cell.anomaly {
+            background-color: red;
+            color: white;
+        }
+
+        /* Add hover effect to cells for better interactivity */
+        td:hover {
+            background-color: #ddd;
+        }
+
+        /* Dynamic high anomaly and low anomaly border colors */
+        .heatmap-cell.high-anomaly {
+            border: 3px solid green;
+            background-color: rgb(176, 224, 176);
+        }
+        .heatmap-cell.low-anomaly {
+            border: 3px dotted green;
+            background-color: rgb(176, 224, 176);
+        }
+
+        .heatmap-cell.total.solid {
+            border: 3px solid purple;
+            border-style: solid;
+        }
+
+        .heatmap-cell.total.dotted {
+            border: 3px solid purple;
+            border-style: dotted;
+        }
+
+        .heatmap-cell.total.dashed {
+            border-style: dashed;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 150px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -75px;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        /* Legends */
+        .legend {
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            margin: 10px auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-item .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .legend-item .legend-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Heatmap</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                {% for hour in heatmap_data.0.Data %}
+                    <th>{{ hour.Hour }}</th>
+                {% endfor %}
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in heatmap_data %}
+                <tr>
+                    <td>{{ item.Date }}</td>
+                    {% for hour_data in item.Data %}
+                        <td class="heatmap-cell
+                            {% if hour_data.high_Anomaly %}
+                                high-anomaly
+                            {% elif hour_data.low_Anomaly %}
+                                low-anomaly
+                            {% endif %}">
+                            <div class="tooltip">
+                                {{ hour_data.Value }}
+                                <span class="tooltiptext">
+                                    Car: {{ hour_data.CarData }}<br>
+                                    Home: {{ hour_data.HomeData }}<br>
+                                    Health: {{ hour_data.HealthData }}
+                                </span>
+                            </div>
+                        </td>
+                    {% endfor %}
+                    <td class="heatmap-cell total
+                        {% if item.TotalBorderColor %}
+                            {{ item.TotalBorderColor }}
+                        {% endif %}
+                        {% if item.TotalBorderStyle %}
+                            {{ item.TotalBorderStyle }}
+                        {% endif %}">
+                        {{ item.Total }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid green; background-color: rgb(176, 224, 176)"></div>
+            <div class="legend-text">High Anomaly</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px dotted green; background-color: rgb(176, 224, 176)"></div>
+            <div class="legend-text">Low Anomaly</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid purple; border-style: solid;"></div>
+            <div class="legend-text">High Total</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid purple; border-style: dotted;"></div>
+            <div class="legend-text">Low Total</div>
+        </div>
+    </div>
+</body>
+</html>

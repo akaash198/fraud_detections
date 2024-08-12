@@ -1,0 +1,184 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: #555;
+}
+
+.form-group input, 
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group select {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1abc9c;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #16a085;
+}
+
+/* Results Styles */
+.alert-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.alert-info p {
+    margin: 0;
+}
+
+/* Error Message Styles */
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.alert-danger p {
+    margin: 0;
+}
+
+/* Button Container */
+.button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
+
+.button-containers {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.navigate-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #1abc9c;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navigate-button:hover {
+    background-color: #16a085;
+}
+
+/* File Upload Styles */
+#file-upload {
+    margin-bottom: 15px;
+}
+
+#file-upload label {
+    font-size: 16px;
+    color: #555;
+}
+
+#file-upload input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff; /* Optional: Make the background white */
+    /* You can use a custom button here if desired */
+}
+
+/* Optional: Style the file upload button */
+#file-upload input[type="file"]::file-selector-button {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#file-upload input[type="file"]::file-selector-button:hover {
+    background-color: #16a085;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .navigate-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

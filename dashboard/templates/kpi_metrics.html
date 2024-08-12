@@ -1,0 +1,1616 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Metrics</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="button-container">
+            <h1>KPI Metrics</h1>
+            <div class="button-group">
+                <button class="filter-button">
+                    <i class="fas fa-filter"></i> Filter
+                </button> 
+                <a href="{% url 'search_customer' %}" class="navigate-button">
+                    <i class="fas fa-search"></i> Search Customer
+                </a>
+                <a href="{% url 'predict_fraud' %}" class="navigate-button">
+                    <i class="fas fa-shield-alt"></i> Predict Fraud
+                </a>
+            </div>
+        </div>
+
+        <!-- Filter Form (Initially Hidden) -->
+        <div class="filter-container" style="display: none;">
+            <form method="GET" id="filter-form">
+                <div class="date-range-info">
+                    <p>Available Data: {{ min_date }} - {{ max_date }}</p>
+                </div>
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ start_date }}" min="{{ min_date }}" max="{{ max_date }}">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ end_date }}" min="{{ min_date }}" max="{{ max_date }}">
+                <button type="submit">Apply Filter</button>
+                <a href="{% url 'kpi_metrics' %}" class="reset-button">Reset</a> 
+            </form>
+        </div>
+
+        <!-- Tabs for Different Metric Categories -->
+        <div class="tabs">
+            <div class="tab-button active" data-tab="customer-metrics">Customer Metrics</div>
+            <div class="tab-button" data-tab="policy-metrics">Policy Metrics</div>
+            <div class="tab-button" data-tab="claim-metrics">Claim Metrics</div>
+            <div class="tab-button" data-tab="incident-metrics">Incident Metrics</div>
+            <div class="tab-button" data-tab="vehicle-metrics">Vehicle Metrics</div>
+            <div class="tab-button" data-tab="demographic-metrics">Demographic Metrics</div>
+            <div class="tab-button" data-tab="location-metrics">Incident Location Metrics</div>
+            <div class="tab-button" data-tab="operational-metrics">Operational Metrics</div>
+            <div class="tab-button" data-tab="behavior-metrics">Customer Behavior Metrics</div>
+        </div>
+
+        <!-- Content for Each Tab -->
+        <div class="tab-content active" id="customer-metrics">
+            <div class="kpi-cards-customer">
+                <div class="kpi-card-customer">
+                    <i class="fas fa-users"></i>
+                    <h2>Total Customers</h2>
+                    <p>{{ kpis.Total_Customers }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Fraud Cases</h2>
+                    <p>{{ kpis.Fraud_Cases }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>Legit Cases</h2>
+                    <p>{{ kpis.Legit_Cases }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h2>Average Age</h2>
+                    <p>{{ kpis.Average_Age_of_Policyholders }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Average Premium</h2>
+                    <p>{{ kpis.Average_Premium }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-clock"></i>
+                    <h2>Average Duration as Customer</h2>
+                    <p>{{ kpis.Average_Duration_as_Customer }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-hourglass-end"></i>
+                    <h2>Max Duration as Customer</h2>
+                    <p>{{ kpis.Max_Duration_as_Customer }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-hourglass-start"></i>
+                    <h2>Min Duration as Customer</h2>
+                    <p>{{ kpis.Min_Duration_as_Customer }}</p>
+                </div>
+                <div class="kpi-card-customer">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Fraud Rate (%)</h2>
+                    <p>{{ kpis.Fraud_Rate }}</p>
+                </div>
+            </div>
+            <div class="charts-container-customer">
+                <!-- Chart for Customer Age Distribution -->
+                <div class="chart-box-customer">
+                    <h2>Customer Age Distribution</h2>
+                    <canvas id="customerAgeChart"></canvas>
+                </div>
+                <!-- Chart for Premium vs Age -->
+                <div class="chart-box-customer">
+                    <h2>Premium vs Age</h2>
+                    <canvas id="premiumVsAgeChart"></canvas>
+                </div>
+                <!-- Chart for Fraud Rate Over Time -->
+                <div class="chart-box-customer">
+                    <h2>Fraud Rate Over Time</h2>
+                    <canvas id="fraudRateChart"></canvas>
+                </div>
+                <!-- Chart for Duration vs Premium -->
+                <div class="chart-box-customer">
+                    <h2>Duration vs Premium</h2>
+                    <canvas id="durationVsPremiumChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="policy-metrics">
+            <div class="kpi-cards-policy">
+                <div class="kpi-card-policy">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Average Umbrella Limit</h2>
+                    <p>{{ kpis.Average_Umbrella_Limit }}</p>
+                </div>
+                <div class="kpi-card-policy">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Average Policy Deductible</h2>
+                    <p>{{ kpis.Average_Policy_Deductible }}</p>
+                </div>
+
+                <div class="kpi-card-policy">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h2>Policies by State</h2>
+                    <ul>
+                        {% for state, count in kpis.Policies_by_State.items %}
+                        <li class="list-item">{{ state }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-policy">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Policy CSL Distribution</h2>
+                    <ul>
+                        {% for csl, count in kpis.Policy_CSL_Distribution.items %}
+                        <li class="list-item">{{ csl }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-policy">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h2>Claims by Policy Deductible</h2>
+                    <ul>
+                        {% for deductible, amount in kpis.Claims_by_Policy_Deductible.items %}
+                        <li class="list-item">{{ deductible }}: {{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="charts-container-policy">
+                <!-- Chart for Policies by State -->
+                <div class="chart-box-policy">
+                    <h2>Policies by State</h2>
+                    <canvas id="policiesByStateChart"></canvas>
+                </div>
+                <!-- Chart for Policy CSL Distribution -->
+                <div class="chart-box-policy">
+                    <h2>Policy CSL Distribution</h2>
+                    <canvas id="policyCslChart"></canvas>
+                </div>
+
+                <!-- Chart for Umbrella Limit Distribution -->
+                <div class="chart-box-policy">
+                    <h2>Umbrella Limit Distribution</h2>
+                    <canvas id="umbrellaLimitChart"></canvas>
+                </div>
+                <!-- Chart for Deductible vs Premium -->
+                <div class="chart-box-policy">
+                    <h2>Deductible vs Premium</h2>
+                    <canvas id="deductibleVsPremiumChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="claim-metrics">
+            <div class="kpi-cards-claim">
+                <div class="kpi-card-claim">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h2>Total Claims Amount</h2>
+                    <p>{{ kpis.Total_Claims_Amount }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Claim Frequency</h2>
+                    <p>{{ kpis.Claim_Frequency }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Claim Severity</h2>
+                    <p>{{ kpis.Claim_Severity }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-medkit"></i>
+                    <h2>Average Injury Claim</h2>
+                    <p>{{ kpis.Average_Injury_Claim }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-home"></i>
+                    <h2>Average Property Claim</h2>
+                    <p>{{ kpis.Average_Property_Claim }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-car"></i>
+                    <h2>Average Vehicle Claim</h2>
+                    <p>{{ kpis.Average_Vehicle_Claim }}</p>
+                </div>
+                <div class="kpi-card-claim">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Fraud Rate</h2>
+                    <p>{{ kpis.Fraud_Rate }}</p>
+                </div>
+            </div>
+
+            <div class="charts-container-claim">
+                <!-- Chart for Total Claims Over Time -->
+                <div class="chart-box-claim">
+                    <h2>Total Claims Over Time</h2>
+                    <canvas id="totalClaimsChart"></canvas>
+                </div>
+                <!-- Chart for Claim Severity vs Type -->
+                <div class="chart-box-claim">
+                    <h2>Claim Severity vs Type</h2>
+                    <canvas id="claimSeverityChart"></canvas>
+                </div>
+                <!-- Chart for Claim Amount Distribution -->
+                <div class="chart-box-claim">
+                    <h2>Claim Amount Distribution</h2>
+                    <canvas id="claimAmountChart"></canvas>
+                </div>
+                <!-- Chart for Claims by Incident Type -->
+                <div class="chart-box-claim">
+                    <h2>Claims by Incident Type</h2>
+                    <canvas id="claimsByTypeChart"></canvas>
+                </div>
+                <!-- Chart for Claim Amount by Deductible -->
+                <div class="chart-box-claim">
+                    <h2>Claim Amount by Deductible</h2>
+                    <canvas id="claimAmountDeductibleChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-content" id="incident-metrics">
+            <div class="kpi-cards-incident">
+                <!-- First row -->
+                <div class="kpi-card-incident">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Incident Frequency</h2>
+                    <p>{{ kpis.Incident_Frequency }}</p>
+                </div>
+                <div class="kpi-card-incident">
+                    <i class="fas fa-home"></i>
+                    <h2>Property Damage Rate (%)</h2>
+                    <p>{{ kpis.Property_Damage_Rate }}</p>
+                </div>
+                <div class="kpi-card-incident">
+                    <i class="fas fa-car-crash"></i>
+                    <h2>Average Vehicles Involved</h2>
+                    <p>{{ kpis.Average_Number_of_Vehicles_Involved }}</p>
+                </div>
+                <div class="kpi-card-incident">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h2>Average Incident Hour</h2>
+                    <p>{{ kpis.Average_Incident_Hour }}</p>
+                </div>
+                <!-- Second row -->
+                <div class="kpi-card-incident">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Incident Severity</h2>
+                    <ul>
+                        {% for severity, count in kpis.Incident_Severity.items %}
+                        <li class="list-item">{{ severity }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-incident">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h2>Claims by Incident Type</h2>
+                    <ul>
+                        {% for incident_type, count in kpis.Claims_by_Incident_Type.items %}
+                        <li class="list-item">{{ incident_type }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="charts-container-incident">
+                    <!-- Chart for Claims by Incident Type -->
+                    <div class="chart-box-incident">
+                        <h2>Claims by Incident Type</h2>
+                        <canvas id="claimsByIncidentTypeChart"></canvas>
+                    </div>
+                    <!-- Chart for Property Damage Rate -->
+                    <div class="chart-box-incident">
+                        <h2>Property Damage Rate</h2>
+                        <canvas id="propertyDamageChart"></canvas>
+                    </div>
+
+                    <!-- Chart for Average Vehicles Involved Over Time -->
+                    <div class="chart-box-incident">
+                        <h2>Average Vehicles Involved Over Time</h2>
+                        <canvas id="vehiclesInvolvedChart"></canvas>
+                    </div>
+                    <!-- Chart for Incident Frequency Over Time -->
+                    <div class="chart-box-incident">
+                        <h2>Incident Frequency Over Time</h2>
+                        <canvas id="incidentFrequencyChart"></canvas>
+                    </div>
+            </div>
+            
+        </div>
+
+        <div class="tab-content" id="vehicle-metrics">
+            <div class="kpi-cards-vehicle">
+                <div class="kpi-card-vehicle">
+                    <i class="fas fa-car"></i>
+                    <h2>Most Common Vehicle Models</h2>
+                    <ul>
+                        {% for model, count in kpis.Most_Common_Vehicle_Models.items %}
+                        <li class="list-item">{{ model }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-vehicle">
+                    <i class="fas fa-car"></i>
+                    <h2>Most Common Vehicle Makes</h2>
+                    <ul>
+                        {% for make, count in kpis.Most_Common_Vehicle_Makes.items %}
+                        <li class="list-item">{{ make }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="kpi-card-vehicle">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h2>Average Vehicle Age</h2>
+                    <p>{{ kpis.Average_Vehicle_Age }}</p>
+                </div>
+                <div class="kpi-card-vehicle">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2>Vehicle Make Distribution</h2>
+                    <ul>
+                        {% for make, count in kpis.Vehicle_Make_Distribution.items %}
+                        <li class="list-item">{{ make }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="charts-container-vehicle">
+                <!-- Chart for Most Common Vehicle Makes -->
+                <div class="chart-box-vehicle">
+                    <h2>Most Common Vehicle Makes</h2>
+                    <canvas id="vehicleMakesChart"></canvas>
+                </div>
+                <!-- Chart for Vehicle Age Distribution -->
+                <div class="chart-box-vehicle">
+                    <h2>Vehicle Age Distribution</h2>
+                    <canvas id="vehicleAgeChart"></canvas>
+                </div>
+                <!-- Chart for Claim Amount vs Vehicle Age -->
+                <div class="chart-box-vehicle">
+                    <h2>Claim Amount vs Vehicle Age</h2>
+                    <canvas id="claimAmountVehicleAgeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="demographic-metrics">
+            <div class="kpi-cards-demographic">
+                <!-- First row -->
+
+                <div class="kpi-card-demographic">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h2>Education Level Analysis</h2>
+                    <ul>
+                        {% for level, count in kpis.Education_Level_Analysis.items %}
+                        <li class="list-item">{{ level }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-demographic">
+                    <i class="fas fa-briefcase"></i>
+                    <h2>Occupation Analysis</h2>
+                    <ul>
+                        {% for occupation, count in kpis.Occupation_Analysis.items %}
+                        <li class="list-item">{{ occupation }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-demographic">
+                    <i class="fas fa-heart"></i>
+                    <h2>Relationship Status Distribution</h2>
+                    <ul>
+                        {% for status, count in kpis.Relationship_Status_Distribution.items %}
+                        <li class="list-item">{{ status }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Second row -->
+                <div class="kpi-card-demographic">
+                    <i class="fas fa-gamepad"></i>
+                    <h2>Hobbies Analysis</h2>
+                    <ul>
+                        {% for hobby, count in kpis.Hobbies_Analysis.items %}
+                        <li class="list-item">{{ hobby }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="kpi-card-demographic">
+                    <i class="fas fa-venus-mars"></i>
+                    <h2>Distribution by Sex</h2>
+                    <ul>
+                        {% for sex, count in kpis.Distribution_by_Sex.items %}
+                        <li class="list-item">{{ sex }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="charts-container-demographic">
+                <!-- Chart for Demographic Distribution -->
+                <div class="chart-box-demographic">
+                    <h2>Demographic Distribution</h2>
+                    <canvas id="demographicChart"></canvas>
+                </div>
+                <!-- Chart for Claims by Education Level -->
+                <div class="chart-box-demographic">
+                    <h2>Claims by Education Level</h2>
+                    <canvas id="claimsByEducationChart"></canvas>
+                </div>
+                <!-- Chart for Claims by Occupation -->
+                <div class="chart-box-demographic">
+                    <h2>Claims by Occupation</h2>
+                    <canvas id="claimsByOccupationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="location-metrics">
+            <div class="kpi-cards-location">
+                <div class="kpi-card-location">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h2>Incident Location Analysis</h2>
+                    <ul>
+                        {% for location, count in kpis.Incident_Location_Analysis.items %}
+                        <li class="list-item">{{ location }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-location">
+                    <i class="fas fa-city"></i>
+                    <h2>Incident City Analysis</h2>
+                    <ul>
+                        {% for city, count in kpis.Top_Incident_Cities.items %}
+                        <li class="list-item">{{ city }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="kpi-card-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h2>Incident State Analysis</h2>
+                    <ul>
+                        {% for state, count in kpis.Top_Incident_Cities.items %}
+                        <li class="list-item">{{ state }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="charts-container-location">
+            <!-- Chart for Top Incident Cities -->
+            <div class="chart-box-location">
+                <h2>Top Incident Cities</h2>
+                <canvas id="topIncidentCitiesChart"></canvas>
+            </div>
+            <!-- Chart for Top Incident States -->
+            <div class="chart-box-location">
+                <h2>Top Incident States</h2>
+                <canvas id="topIncidentStatesChart"></canvas>
+            </div>
+            </div>
+
+            
+        </div>
+
+        <div class="tab-content" id="operational-metrics">
+            <div class="kpi-cards-operational">
+                <div class="kpi-card-operational">
+                    <i class="fas fa-car-crash"></i>
+                    <h2>Average Number of Vehicles Involved</h2>
+                    <p>{{ kpis.Average_Number_of_Vehicles_Involved }}</p>
+                </div>
+                <div class="kpi-card-operational">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Police Report Availability Rate (%)</h2>
+                    <p>{{ kpis.Police_Report_Availability_Rate }}</p>
+                </div>
+                <div class="kpi-card-operational">
+                    <i class="fas fa-eye"></i>
+                    <h2>Total Witnesses</h2>
+                    <p>{{ kpis.Total_Witnesses }}</p>
+                </div>
+                
+                <div class="kpi-card-operational">
+                    <i class="fas fa-arrow-up"></i>
+                    <h2>Total Capital Gains</h2>
+                    <p>{{ kpis.Total_Capital_Gains }}</p>
+                </div>
+               
+                <div class="kpi-card-operational">
+                    <i class="fas fa-arrow-down"></i>
+                    <h2>Total Capital Loss</h2>
+                    <p>{{ kpis.Total_Capital_Loss }}</p>
+                </div>
+
+            </div>
+            <div class="charts-container-operational">
+                    <!-- Chart for Average Vehicles Involved Over Time -->
+                    <div class="chart-box-operational">
+                        <h2>Average Vehicles Involved Over Time</h2>
+                        <canvas id="averageVehiclesChart"></canvas>
+                    </div>
+                    <!-- Chart for Police Report Availability -->
+                    <div class="chart-box-operational">
+                        <h2>Police Report Availability</h2>
+                        <canvas id="policeReportChart"></canvas>
+                    </div>
+                    <!-- Chart for Claim Amount vs Witnesses -->
+                    <div class="chart-box-operational">
+                        <h2>Claim Amount vs Witnesses</h2>
+                        <canvas id="claimAmountWitnessesChart"></canvas>
+                    </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="behavior-metrics">
+            <div class="kpi-cards-behavior">
+                <div class="kpi-card-behavior">
+                    <i class="fas fa-arrow-up"></i>
+                    <h2>Average Capital Gains</h2>
+                    <p>{{ kpis.Average_Capital_Gains }}</p>
+                </div>
+                <div class="kpi-card-behavior">
+                    <i class="fas fa-arrow-down"></i>
+                    <h2>Average Capital Loss</h2>
+                    <p>{{ kpis.Average_Capital_Loss }}</p>
+                </div>
+                <div class="kpi-card-behavior">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Average Capital Gains per Fraud Case</h2>
+                    <p>{{ kpis.Average_Capital_Gains_per_Fraud_Case }}</p>
+                </div>
+                <div class="kpi-card-behavior">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Average Capital Loss per Fraud Case</h2>
+                    <p>{{ kpis.Average_Capital_Loss_per_Fraud_Case }}</p>
+                </div>
+                <div class="kpi-card-behavior">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h2>Average Policy Binding Month</h2>
+                    <p>{{ kpis.Average_Policy_Binding_Month }}</p>
+                </div>
+            </div>
+            <div class="charts-container-behavior">
+                <!-- Chart for Average Capital Gains Over Time -->
+                <div class="chart-box-behavior">
+                    <h2>Average Capital Gains Over Time</h2>
+                    <canvas id="capitalGainsChart"></canvas>
+                </div>
+                <!-- Chart for Capital Gains vs Claim Amount -->
+                <div class="chart-box-behavior">
+                    <h2>Capital Gains vs Claim Amount</h2>
+                    <canvas id="capitalGainsClaimChart"></canvas>
+                </div>
+                <!-- Chart for Policy Binding Month Over Time -->
+                <div class="chart-box-behavior">
+                    <h2>Policy Binding Month Over Time</h2>
+                    <canvas id="policyBindingChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        
+        // JavaScript to show/hide the filter form
+        document.querySelector('.filter-button').addEventListener('click', function() {
+            const formContainer = document.querySelector('.filter-container');
+            if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                formContainer.style.display = 'block';
+            } else {
+                formContainer.style.display = 'none';
+            }
+        });
+        
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+
+
+
+        // Chart for Total Claims Over Time
+        var ctx4 = document.getElementById('customerAgeChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.customer_age_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Number of Customers',
+                    data: {{ chart_data_1.customer_age_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Premium vs Age , label , data
+        var ctx5 = document.getElementById('premiumVsAgeChart').getContext('2d');
+        new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.premium_vs_age.labels|safe }},
+                datasets: [{
+                    label: 'Premium vs Age',
+                    data: {{ chart_data_1.premium_vs_age.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Fraud Rate Over Time
+        var ctx6 = document.getElementById('fraudRateChart').getContext('2d');
+        new Chart(ctx6, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.fraud_rate_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Fraud Rate Over Time',
+                    data: {{ chart_data_1.fraud_rate_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Duration vs Premium
+        var ctx7 = document.getElementById('durationVsPremiumChart').getContext('2d');
+        new Chart(ctx7, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.duration_vs_premium.labels|safe }},
+                datasets: [{
+                    label: 'Duration vs Premium',
+                    data: {{ chart_data_1.duration_vs_premium.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Policies by State
+        var ctx8 = document.getElementById('policiesByStateChart').getContext('2d');
+        new Chart(ctx8, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.policies_by_state.labels|safe }},
+                datasets: [{
+                    label: 'Number of Policies',
+                    data: {{ chart_data_1.policies_by_state.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Policy CSL Distribution
+        var ctx9 = document.getElementById('policyCslChart').getContext('2d');
+        new Chart(ctx9, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.policy_csl_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Number of Policies',
+                    data: {{ chart_data_1.policy_csl_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Deductible vs Premium
+        var ctx10 = document.getElementById('deductibleVsPremiumChart').getContext('2d');
+        new Chart(ctx10, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.deductible_vs_premium.labels|safe }},
+                datasets: [{
+                    label: 'Deductible vs Premium',
+                    data: {{ chart_data_1.deductible_vs_premium.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Umbrella Limit Distribution
+        var ctx11 = document.getElementById('umbrellaLimitChart').getContext('2d');
+        new Chart(ctx11, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.umbrella_limit_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Number of Policies',
+                    data: {{ chart_data_1.umbrella_limit_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Total Claims Over Time
+        var ctx12 = document.getElementById('totalClaimsChart').getContext('2d');
+        new Chart(ctx12, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.total_claims_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Total Claims Over Time',
+                    data: {{ chart_data_1.total_claims_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Claim Severity vs Type
+        var ctx13 = document.getElementById('claimSeverityChart').getContext('2d');
+        new Chart(ctx13, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claim_severity_vs_type.labels|safe }},
+                datasets: [{
+                    label: 'Claim Severity vs Type',
+                    data: {{ chart_data_1.claim_severity_vs_type.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claim Amount Distribution
+
+        var ctx14 = document.getElementById('claimAmountChart').getContext('2d');
+        new Chart(ctx14, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claim_amount_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Claim Amount Distribution',
+                    data: {{ chart_data_1.claim_amount_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claims by Incident Type
+        var ctx15 = document.getElementById('claimsByTypeChart').getContext('2d');
+        new Chart(ctx15, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claims_by_incident_type.labels|safe }},
+                datasets: [{
+                    label: 'Claims by Incident Type',
+                    data: {{ chart_data_1.claims_by_incident_type.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claim Amount by Deductible
+
+        var ctx16 = document.getElementById('claimAmountDeductibleChart').getContext('2d');
+        new Chart(ctx16, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claim_amount_by_deductible.labels|safe }},
+                datasets: [{
+                    label: 'Claim Amount by Deductible',
+                    data: {{ chart_data_1.claim_amount_by_deductible.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Claims by Incident Type
+        var ctx17 = document.getElementById('claimsByIncidentTypeChart').getContext('2d');
+        new Chart(ctx17, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claims_by_incident_type.labels|safe }},
+                datasets: [{
+                    label: 'Claims by Incident Type',
+                    data: {{ chart_data_1.claims_by_incident_type.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Property Damage Rate
+
+        var ctx18 = document.getElementById('propertyDamageChart').getContext('2d');
+        new Chart(ctx18, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.property_damage_rate.labels|safe }},
+                datasets: [{
+                    label: 'Property Damage Rate',
+                    data: {{ chart_data_1.property_damage_rate.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Average Vehicles Involved Over Time
+
+        var ctx19 = document.getElementById('vehiclesInvolvedChart').getContext('2d');
+        new Chart(ctx19, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.average_vehicles_involved_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Average Vehicles Involved Over Time',
+                    data: {{ chart_data_1.average_vehicles_involved_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Incident Frequency Over Time
+
+        var ctx20 = document.getElementById('incidentFrequencyChart').getContext('2d');
+        new Chart(ctx20, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.incident_frequency_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Incident Frequency Over Time',
+                    data: {{ chart_data_1.incident_frequency_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Most Common Vehicle Makes
+
+        var ctx21 = document.getElementById('vehicleMakesChart').getContext('2d');
+        new Chart(ctx21, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.most_common_vehicle_makes.labels|safe }},
+                datasets: [{
+                    label: 'Number of Vehicles',
+                    data: {{ chart_data_1.most_common_vehicle_makes.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Vehicle Age Distribution
+
+        var ctx22 = document.getElementById('vehicleAgeChart').getContext('2d');
+        new Chart(ctx22, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.vehicle_age_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Vehicle Age Distribution',
+                    data: {{ chart_data_1.vehicle_age_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claim Amount vs Vehicle Age
+
+        var ctx23 = document.getElementById('claimAmountVehicleAgeChart').getContext('2d');
+        new Chart(ctx23, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.claim_amount_vs_vehicle_age.labels|safe }},
+                datasets: [{
+                    label: 'Claim Amount vs Vehicle Age',
+                    data: {{ chart_data_1.claim_amount_vs_vehicle_age.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Demographic Distribution
+
+        var ctx24 = document.getElementById('demographicChart').getContext('2d');
+        new Chart(ctx24, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.demographic_distribution.labels|safe }},
+                datasets: [{
+                    label: 'Demographic Distribution',
+                    data: {{ chart_data_1.demographic_distribution.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Claims by Education Level
+
+        var ctx25 = document.getElementById('claimsByEducationChart').getContext('2d');
+        new Chart(ctx25, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claims_by_education_level.labels|safe }},
+                datasets: [{
+                    label: 'Claims by Education Level',
+                    data: {{ chart_data_1.claims_by_education_level.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claims by Occupation
+
+        var ctx26 = document.getElementById('claimsByOccupationChart').getContext('2d');
+        new Chart(ctx26, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.claims_by_occupation.labels|safe }},
+                datasets: [{
+                    label: 'Claims by Occupation',
+                    data: {{ chart_data_1.claims_by_occupation.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Top Incident Cities
+        
+        var ctx27 = document.getElementById('topIncidentCitiesChart').getContext('2d');
+        new Chart(ctx27, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.top_incident_cities.labels|safe }},
+                datasets: [{
+                    label: 'Top Incident Cities',
+                    data: {{ chart_data_1.top_incident_cities.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Top Incident States
+
+        var ctx28 = document.getElementById('topIncidentStatesChart').getContext('2d');
+        new Chart(ctx28, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.top_incident_states.labels|safe }},
+                datasets: [{
+                    label: 'Top Incident States',
+                    data: {{ chart_data_1.top_incident_states.values|safe }},
+                    backgroundColor: '#36A2EB',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Average Vehicles Involved Over Time
+
+        var ctx29 = document.getElementById('averageVehiclesChart').getContext('2d');
+        new Chart(ctx29, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.average_vehicles_involved_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Average Vehicles Involved Over Time',
+                    data: {{ chart_data_1.average_vehicles_involved_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Police Report Availability
+
+        var ctx30 = document.getElementById('policeReportChart').getContext('2d');
+        new Chart(ctx30, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_data_1.police_report_availability.labels|safe }},
+                datasets: [{
+                    label: 'Police Report Availability',
+                    data: {{ chart_data_1.police_report_availability.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Claim Amount vs Witnesses
+
+        var ctx31 = document.getElementById('claimAmountWitnessesChart').getContext('2d');
+        new Chart(ctx31, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.claim_amount_vs_witnesses.labels|safe }},
+                datasets: [{
+                    label: 'Claim Amount vs Witnesses',
+                    data: {{ chart_data_1.claim_amount_vs_witnesses.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for Average Capital Gains Over Time
+
+        var ctx32 = document.getElementById('capitalGainsChart').getContext('2d');
+        new Chart(ctx32, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.average_capital_gains_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Average Capital Gains Over Time',
+                    data: {{ chart_data_1.average_capital_gains_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Capital Gains vs Claim Amount
+
+        var ctx33 = document.getElementById('capitalGainsClaimChart').getContext('2d');
+        new Chart(ctx33, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.capital_gains_vs_claim_amount.labels|safe }},
+                datasets: [{
+                    label: 'Capital Gains vs Claim Amount',
+                    data: {{ chart_data_1.capital_gains_vs_claim_amount.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Chart for Policy Binding Month Over Time
+
+        var ctx34 = document.getElementById('policyBindingChart').getContext('2d');
+        new Chart(ctx34, {
+            type: 'line',
+            data: {
+                labels: {{ chart_data_1.policy_binding_month_over_time.labels|safe }},
+                datasets: [{
+                    label: 'Policy Binding Month Over Time',
+                    data: {{ chart_data_1.policy_binding_month_over_time.values|safe }},
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+        
+    
+
+
+    </script>
+</body>
+</html>

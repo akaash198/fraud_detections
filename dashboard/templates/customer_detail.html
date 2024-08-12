@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="{% static 'css/customer_details.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Details</h1>
+        </div>
+        <div class="card">
+            {% if customer %}
+            <h2>Details for Policy Number: {{ customer.policy_number }}</h2>
+            <div class="info">
+                <div class="info-item">
+                    <span class="label">Claim Date:</span>
+                    <span class="value">{{ customer.incident_date }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Age:</span>
+                    <span class="value">{{ customer.age }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Claim Amount:</span>
+                    <span class="value">${{ customer.total_claim_amount }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Months as Customer:</span>
+                    <span class="value">{{ customer.months_as_customer }} months</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Incident Location:</span>
+                    <span class="value">{{ customer.incident_location }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Claim Type:</span>
+                    <span class="value">{{ customer.incident_type }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Fraud Reported:</span>
+                    <span class="value">{{ customer.fraud_reported|yesno:"Yes,No" }}</span>
+                </div>
+            </div>
+            {% else %}
+            <p class="no-details">No details found for the given policy number.</p>
+            {% endif %}
+            <a href="{% url 'search_customer' %}" class="back-link">Back to Search</a>
+        </div>
+    </div>
+</body>
+</html>

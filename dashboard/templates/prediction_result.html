@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{% static 'css/prediction_result.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fraud Detection Result</h1>
+
+        {% if results %}
+            <div class="result">
+                {% if results.PolicyNumber %}
+                    <!-- Single result (Manual Input) -->
+                    <div class="result">
+                        <h2>Prediction for Policy Number: {{ results.PolicyNumber }}</h2>
+                        <p><strong>{{ results.prediction }}</strong></p>
+                    </div>
+                    <div class="details">
+                        <h2>Prediction Probabilities:</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Fraud</td>
+                                    <td>{{ results.probability|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Not Fraud</td>
+                                    <td>{{ 1.0|floatformat:2|add:"-"|add:results.probability|floatformat:2 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <!-- Multiple results (File Upload) -->
+                    <div class="details">
+                        <h2>Prediction Results:</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Policy Number</th>
+                                    <th>Prediction</th>
+                                    <th>Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in results %}
+                                    <tr class="table-row">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ result.PolicyNumber }}</td>
+                                        <td>{{ result.Prediction }}</td>
+                                        <td>{{ result.Probability|floatformat:2 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <!-- No results available -->
+            <div class="result">
+                <p>No results to display.</p>
+            </div>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="{% url 'predict_fraud' %}" class="navigate-button">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

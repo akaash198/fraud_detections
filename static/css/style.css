@@ -1,0 +1,1330 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8fafc;
+  color: #34495e;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Heading styles */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+/* KPI Cards */
+.kpi-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.kpi-cards-customer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.kpi-card-customer {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+}
+
+.kpi-card-customer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-customer i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-customer h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-customer p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.charts-container-customer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-customer {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-customer h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+.kpi-cards-policy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+
+
+.kpi-card-policy {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 200px;
+}
+
+.kpi-card-policy:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-policy i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-policy h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-policy p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-policy ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-policy li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-policy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns in the first row */
+  grid-template-rows: auto auto; /* Two rows */
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+}
+
+.chart-box-policy {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+/* Ensure the last card spans across all columns */
+.chart-box-policy:last-child {
+  grid-column: span 3; /* Span across all columns in the second row */
+}
+
+.chart-box-policy h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+
+.kpi-cards-claim {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+
+
+.kpi-card-claim {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+}
+
+.kpi-card-claim:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-claim i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-claim h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-claim p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-claim ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-claim li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-claim {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-claim {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-claim h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+.kpi-cards-incident {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four columns for the first row */
+  grid-template-rows: auto auto; /* Two rows */
+  gap: 10px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.kpi-card-incident {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+  width: 100%; /* Ensure the card spans the full width of its grid cell */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Adjust the grid layout for the second row */
+.kpi-cards-incident .kpi-card-incident:nth-child(5),
+.kpi-cards-incident .kpi-card-incident:nth-child(6) {
+  grid-column: span 2; /* Span across two columns */
+  grid-row: 2; /* Place in the second row */
+}
+
+
+.kpi-card-incident:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-incident i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-incident h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-incident p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-incident ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-incident li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-incident {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-incident {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-incident h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+
+.kpi-cards-vehicle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns for the second row */
+  grid-template-rows: auto auto; /* Two rows */
+  gap: 10px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.kpi-card-vehicle {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+
+/* Place the first card in the first row and span all columns */
+.kpi-cards-vehicle .kpi-card-vehicle:first-child {
+  grid-column: 1 / -1; /* Span across all columns */
+}
+
+/* Place the remaining cards in the second row, each spanning one column */
+.kpi-cards-vehicle .kpi-card-vehicle:nth-child(2),
+.kpi-cards-vehicle .kpi-card-vehicle:nth-child(3),
+.kpi-cards-vehicle .kpi-card-vehicle:nth-child(4) {
+  grid-row: 2; /* Place in the second row */
+}
+
+
+
+
+.kpi-card-vehicle:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-vehicle i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-vehicle h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-vehicle p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-vehicle ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-vehicle li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-vehicle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-vehicle {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-vehicle h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+.kpi-cards-demographic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns for the first row */
+  grid-template-rows: auto auto; /* Two rows */
+  gap: 10px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.kpi-card-demographic {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+  width: 100%; /* Ensure the card spans the full width of its grid cell */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Adjust the grid layout for the second row */
+.kpi-cards-demographic .kpi-card-demographic:nth-child(4),
+.kpi-cards-demographic .kpi-card-demographic:nth-child(5) {
+  grid-column: span 1; /* Each card spans one column */
+  grid-row: 2; /* Place in the second row */
+}
+
+.kpi-cards-demographic .kpi-card-demographic:nth-child(4) {
+  grid-column: span 2; /* Span across two columns for the first card in the second row */
+}
+
+.kpi-cards-demographic .kpi-card-demographic:nth-child(5) {
+  grid-column: span 1; /* Span one column for the second card in the second row */
+}
+
+
+
+
+
+
+
+
+.kpi-card-demographic:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-demographic i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-demographic h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-demographic p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-demographic ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-demographic li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-demographic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-demographic {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-demographic h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+.kpi-cards-location {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns for the second row */
+  grid-template-rows: auto auto; /* Two rows */
+  gap: 10px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.kpi-card-location {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+
+/* Place the first card in the first row and span all columns */
+.kpi-cards-location .kpi-card-location:first-child {
+  grid-column: 1 / -1; /* Span across all columns */
+}
+
+/* Place the remaining cards in the second row, each spanning one column */
+.kpi-cards-location .kpi-card-location:nth-child(2),
+.kpi-cards-location .kpi-card-location:nth-child(3),
+.kpi-cards-location .kpi-card-location:nth-child(4) {
+  grid-row: 2; /* Place in the second row */
+}
+
+
+
+
+.kpi-card-location:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-location i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-location h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-location p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.kpi-card-location ul { /* Target the ul directly within the kpi-card */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpi-card-location li { 
+  flex: 1 0 150px; /* Adjust the 150px to control item width */
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px; 
+  background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+
+.charts-container-location {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-location {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-location h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+
+.kpi-cards-operational {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.kpi-card-operational {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+}
+
+.kpi-card-operational:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-operational i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-operational h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-operational p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.charts-container-operational {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-operational {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-operational h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+
+.kpi-cards-behavior {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.kpi-card-behavior {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 100px;
+}
+
+.kpi-card-behavior:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card-behavior i {
+  font-size: 1em;
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.kpi-card-behavior h2 {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.kpi-card-behavior p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.charts-container-behavior {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+  height: 100%; /* Ensure the container takes up full height */
+}
+
+.chart-box-behavior {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* Remove max-width to ensure grid items stretch equally */
+}
+
+.chart-box-behavior h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+
+
+
+
+
+.kpi-card {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-height: 200px;
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  background-color: #ecf7f4;
+}
+
+.kpi-card i {
+  font-size: 2.5em;
+  color: #1abc9c;
+  margin-bottom: 15px;
+}
+
+.kpi-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #3498db;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.kpi-card p {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Charts */
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.chart-box {
+  background: #ffffff;
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.chart-box h2 {
+  margin-bottom: 15px;
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+/* Responsive chart sizes */
+#cumulativeClaimsFraudRateChart {
+  width: 100%;
+  height: auto;
+}
+
+.pie-chart {
+  width: 100%;
+  height: auto;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+/* Chart Placeholder */
+.chart-placeholder {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.chart-placeholder canvas {
+  border-radius: 8px;
+}
+
+/* Button container styles */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+
+/* Button group styles */
+.button-group {
+  display: flex;
+  gap: 10px; /* Adjust gap between buttons as needed */
+}
+
+/* Button styles */
+.navigate-button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 1em;
+  color: #ffffff;
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navigate-button:hover {
+  background-color: #16a085;
+  transform: translateY(-3px);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kpi-cards,
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-card {
+    min-height: 180px;
+  }
+
+  .chart-box {
+    width: 100%;
+    height: auto;
+  }
+
+  .chart-placeholder {
+    height: auto;
+  }
+}
+
+/* Tabs Container */
+.tabs {
+  display: flex;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+/* Tab Buttons */
+.tab-button {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  text-align: center;
+  color: #34495e;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+/* Active Tab Button */
+.tab-button.active {
+  background: #ffffff;
+  color: #1abc9c;
+  font-weight: 700;
+  border-bottom: 2px solid #1abc9c;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  overflow: hidden;
+}
+
+/* Active Tab Content */
+.tab-content.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Tab Content Placeholder (for smoother transition) */
+.tab-content-placeholder {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* Active Tab Content Placeholder */
+.tab-content.active .tab-content-placeholder {
+  opacity: 1;
+  max-height: 500px; /* Adjust as necessary */
+}
+
+
+/* List Container (No longer necessary with flex) */
+
+/* List Items (Flexbox styling) */
+.kpi-card ul { /* Target the ul directly within the kpi-card */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.kpi-card li { 
+    flex: 1 0 150px; /* Adjust the 150px to control item width */
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px; 
+    background-color: #f9f9f9; /* Optional: Add background color */
+} 
+
+/* List Item Hover Effect */
+.list-item:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* List Item Icon */
+.list-item i {
+  font-size: 1.5em;
+  color: #1abc9c;
+  margin-right: 15px;
+}
+
+/* List Item Content */
+.list-item-content {
+  flex: 1;
+}
+
+/* List Item Title */
+.list-item-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+/* List Item Description */
+.list-item-description {
+  font-size: 0.9em;
+  color: #7f8c8d;
+}
+
+/* Last List Item */
+.list-item:last-child {
+  margin-bottom: 0;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  justify-content: flex-end; /* Align form to the right */
+}
+
+/* Button Container Styles */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+}
+
+.navigate-button,
+.filter-button {
+  background-color: #1abc9c;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
+  text-decoration: none; /* Remove underline for links */
+}
+
+.filter-button {
+  margin-right: 0; /* Remove margin on the right for the last button */
+}
+
+.navigate-button i,
+.filter-button i {
+  margin-right: 5px;
+}
+
+/* Filter Form Styles */
+.filter-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  justify-content: flex-end; /* Align form to the right */
+}
+
+.date-range-info {
+  margin-bottom: 10px;
+}
+
+.date-range-info p {
+  color: #1abc9c;
+  font-weight: bold;
+}
+
+label {
+  margin-right: 5px;
+  color: #1abc9c;
+}
+
+input[type="date"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+button[type="submit"] {
+  background-color: #1abc9c;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.reset-button {
+  background-color: #ccc;
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+

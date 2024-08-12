@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Customer</title>
+    <link rel="stylesheet" href="{% static 'css/search_customer.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Search for Customer</h1>
+        </div>
+
+        <!-- Back to Dashboard Button -->
+        <div class="button-container">
+            <a href="{% url 'kpi_metrics' %}" class="navigate-button">Back to Dashboard</a>
+        </div>
+
+        <div class="search-container">
+            <form method="get" action="{% url 'search_customer' %}" class="search-form">
+                <input type="text" name="policy_number" placeholder="Enter Policy Number" required>
+                <button type="submit">Search</button>
+            </form>
+            {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
