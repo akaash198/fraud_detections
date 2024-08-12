@@ -91,21 +91,13 @@ h2 {
 }
 
 /* Button Container */
-.button-container {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: right;
-    align-items: right;
-}
-
-
+.button-container,
 .button-containers {
     margin-bottom: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center the buttons */
+    align-items: center; 
 }
-
-
 
 .navigate-button {
     display: inline-block;
@@ -180,5 +172,24 @@ h2 {
     .navigate-button {
         padding: 8px 16px;
         font-size: 14px;
+    }
+
+    /* Adjust the container width for mobile */
+    .container {
+        width: 95%; 
+    }
+
+    /* Make the button container flex-wrap for smaller screens */
+    .button-container,
+    .button-containers {
+        flex-wrap: wrap; /* Allow elements to wrap if needed */
+        justify-content: center; /* Center the buttons even when wrapped */
+    }
+
+    /* Additional styling for buttons on small screens */
+    .btn-primary,
+    .navigate-button {
+        margin-bottom: 10px; /* Add bottom margin for spacing */
+        width: 100%; /* Make buttons take up full width */
     }
 }

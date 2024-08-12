@@ -89,3 +89,53 @@ h2 {
     color: #fff;
     border-color: #1abc9c;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%; /* Make the container occupy almost full width */
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    h1 {
+        font-size: 2em; /* Adjust font size for heading */
+    }
+
+    .card {
+        max-width: 90%; /* Adjust the card width for smaller screens */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Adjust font size for heading */
+    }
+
+    .info-item {
+        flex-direction: column; /* Stack label and value vertically */
+        padding: 5px 0;
+    }
+
+    .label {
+        margin-bottom: 5px; /* Add margin for spacing */
+    }
+
+    .back-link {
+        display: block; /* Make the back link take up full width */
+        margin: 20px auto; /* Center the back link */
+        text-align: center; /* Center the text */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em; /* Further reduce font size for heading */
+    }
+
+    h2 {
+        font-size: 1.3em; /* Further reduce font size for heading */
+    }
+
+    .card {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+}

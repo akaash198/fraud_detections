@@ -313,7 +313,8 @@ def kpi_metrics(request):
 
     }
     
-    print(chart_data_1['most_common_vehicle_makes'])
+    print(kpis_formatted)
+
     return render(request, 'kpi_metrics.html', {'kpis': kpis_formatted, 'chart_data_1': chart_data_1, 'min_date': min_date, 'max_date': max_date})
 
 

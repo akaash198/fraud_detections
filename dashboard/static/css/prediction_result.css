@@ -124,3 +124,60 @@ h1 {
 .back-link a:hover {
     text-decoration: underline;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px; /* Reduced padding for smaller screens */
+        max-width: 95%; /* Container takes almost full width */
+    }
+
+    h1 {
+        font-size: 2em; /* Reduced font size for heading */
+    }
+
+    .result p {
+        font-size: 1em; /* Reduced font size for result text */
+    }
+
+    .details table {
+        font-size: 14px; /* Reduced font size for table text */
+    }
+
+    .navigate-button {
+        padding: 10px 20px; /* Reduced padding for button */
+        font-size: 16px; /* Reduced font size for button */
+    }
+
+    .back-link {
+        margin-top: 20px; /* Adjusted margin for back link */
+    }
+
+    .details table {
+        font-size: 14px; /* Adjust font size for better readability */
+    }
+}
+
+/* Responsive for smaller screens (e.g., mobile phones) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .result h2 {
+        font-size: 1.3em;
+    }
+
+    .result p {
+        font-size: 0.9em;
+    }
+
+    .details table {
+        font-size: 12px;
+    }
+
+    .navigate-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

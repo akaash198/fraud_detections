@@ -37,839 +37,14 @@ h1 {
   margin-bottom: 40px;
 }
 
-.kpi-cards-customer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.kpi-card-customer {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-}
-
-.kpi-card-customer:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-customer i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-customer h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-customer p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.charts-container-customer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-customer {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-customer h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-.kpi-cards-policy {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-
-
-.kpi-card-policy {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 200px;
-}
-
-.kpi-card-policy:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-policy i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-policy h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-policy p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-policy ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-policy li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-policy {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns in the first row */
-  grid-template-rows: auto auto; /* Two rows */
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-}
-
-.chart-box-policy {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-/* Ensure the last card spans across all columns */
-.chart-box-policy:last-child {
-  grid-column: span 3; /* Span across all columns in the second row */
-}
-
-.chart-box-policy h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-
-.kpi-cards-claim {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-
-
-.kpi-card-claim {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-}
-
-.kpi-card-claim:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-claim i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-claim h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-claim p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-claim ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-claim li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-claim {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-claim {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-claim h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-.kpi-cards-incident {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Four columns for the first row */
-  grid-template-rows: auto auto; /* Two rows */
-  gap: 10px;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.kpi-card-incident {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-  width: 100%; /* Ensure the card spans the full width of its grid cell */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-/* Adjust the grid layout for the second row */
-.kpi-cards-incident .kpi-card-incident:nth-child(5),
-.kpi-cards-incident .kpi-card-incident:nth-child(6) {
-  grid-column: span 2; /* Span across two columns */
-  grid-row: 2; /* Place in the second row */
-}
-
-
-.kpi-card-incident:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-incident i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-incident h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-incident p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-incident ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-incident li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-incident {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-incident {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-incident h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-
-.kpi-cards-vehicle {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns for the second row */
-  grid-template-rows: auto auto; /* Two rows */
-  gap: 10px;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.kpi-card-vehicle {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-  box-sizing: border-box;
-}
-
-/* Place the first card in the first row and span all columns */
-.kpi-cards-vehicle .kpi-card-vehicle:first-child {
-  grid-column: 1 / -1; /* Span across all columns */
-}
-
-/* Place the remaining cards in the second row, each spanning one column */
-.kpi-cards-vehicle .kpi-card-vehicle:nth-child(2),
-.kpi-cards-vehicle .kpi-card-vehicle:nth-child(3),
-.kpi-cards-vehicle .kpi-card-vehicle:nth-child(4) {
-  grid-row: 2; /* Place in the second row */
-}
-
-
-
-
-.kpi-card-vehicle:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-vehicle i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-vehicle h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-vehicle p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-vehicle ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-vehicle li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-vehicle {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-vehicle {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-vehicle h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-.kpi-cards-demographic {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns for the first row */
-  grid-template-rows: auto auto; /* Two rows */
-  gap: 10px;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.kpi-card-demographic {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-  width: 100%; /* Ensure the card spans the full width of its grid cell */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-/* Adjust the grid layout for the second row */
-.kpi-cards-demographic .kpi-card-demographic:nth-child(4),
-.kpi-cards-demographic .kpi-card-demographic:nth-child(5) {
-  grid-column: span 1; /* Each card spans one column */
-  grid-row: 2; /* Place in the second row */
-}
-
-.kpi-cards-demographic .kpi-card-demographic:nth-child(4) {
-  grid-column: span 2; /* Span across two columns for the first card in the second row */
-}
-
-.kpi-cards-demographic .kpi-card-demographic:nth-child(5) {
-  grid-column: span 1; /* Span one column for the second card in the second row */
-}
-
-
-
-
-
-
-
-
-.kpi-card-demographic:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-demographic i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-demographic h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-demographic p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-demographic ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-demographic li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-demographic {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-demographic {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-demographic h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-.kpi-cards-location {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns for the second row */
-  grid-template-rows: auto auto; /* Two rows */
-  gap: 10px;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.kpi-card-location {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-  box-sizing: border-box;
-}
-
-/* Place the first card in the first row and span all columns */
-.kpi-cards-location .kpi-card-location:first-child {
-  grid-column: 1 / -1; /* Span across all columns */
-}
-
-/* Place the remaining cards in the second row, each spanning one column */
-.kpi-cards-location .kpi-card-location:nth-child(2),
-.kpi-cards-location .kpi-card-location:nth-child(3),
-.kpi-cards-location .kpi-card-location:nth-child(4) {
-  grid-row: 2; /* Place in the second row */
-}
-
-
-
-
-.kpi-card-location:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-location i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-location h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-location p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card-location ul { /* Target the ul directly within the kpi-card */
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
-  gap: 10px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.kpi-card-location li { 
-  flex: 1 0 150px; /* Adjust the 150px to control item width */
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px; 
-  background-color: #f9f9f9; /* Optional: Add background color */
-} 
-
-
-.charts-container-location {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-location {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-location h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-
-.kpi-cards-operational {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.kpi-card-operational {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 100px;
-}
-
-.kpi-card-operational:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card-operational i {
-  font-size: 1em;
-  color: #1abc9c;
-  margin-bottom: 5px;
-}
-
-.kpi-card-operational h2 {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #3498db;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-
-.kpi-card-operational p {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.charts-container-operational {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-operational {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-operational h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-
+.kpi-cards-customer,
+.kpi-cards-policy,
+.kpi-cards-claim,
+.kpi-cards-incident,
+.kpi-cards-vehicle,
+.kpi-cards-demographic,
+.kpi-cards-location,
+.kpi-cards-operational,
 .kpi-cards-behavior {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -877,6 +52,15 @@ h1 {
   margin-bottom: 40px;
 }
 
+.kpi-card,
+.kpi-card-customer,
+.kpi-card-policy,
+.kpi-card-claim,
+.kpi-card-incident,
+.kpi-card-vehicle,
+.kpi-card-demographic,
+.kpi-card-location,
+.kpi-card-operational,
 .kpi-card-behavior {
   background: #ffffff;
   border: 1px solid #e0e4e8;
@@ -892,18 +76,45 @@ h1 {
   min-height: 100px;
 }
 
+.kpi-card:hover,
+.kpi-card-customer:hover,
+.kpi-card-policy:hover,
+.kpi-card-claim:hover,
+.kpi-card-incident:hover,
+.kpi-card-vehicle:hover,
+.kpi-card-demographic:hover,
+.kpi-card-location:hover,
+.kpi-card-operational:hover,
 .kpi-card-behavior:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   background-color: #ecf7f4;
 }
 
+.kpi-card i,
+.kpi-card-customer i,
+.kpi-card-policy i,
+.kpi-card-claim i,
+.kpi-card-incident i,
+.kpi-card-vehicle i,
+.kpi-card-demographic i,
+.kpi-card-location i,
+.kpi-card-operational i,
 .kpi-card-behavior i {
   font-size: 1em;
   color: #1abc9c;
   margin-bottom: 5px;
 }
 
+.kpi-card h2,
+.kpi-card-customer h2,
+.kpi-card-policy h2,
+.kpi-card-claim h2,
+.kpi-card-incident h2,
+.kpi-card-vehicle h2,
+.kpi-card-demographic h2,
+.kpi-card-location h2,
+.kpi-card-operational h2,
 .kpi-card-behavior h2 {
   font-size: 0.8rem;
   margin-bottom: 5px;
@@ -912,99 +123,48 @@ h1 {
   text-transform: capitalize;
 }
 
+.kpi-card p,
+.kpi-card-customer p,
+.kpi-card-policy p,
+.kpi-card-claim p,
+.kpi-card-incident p,
+.kpi-card-vehicle p,
+.kpi-card-demographic p,
+.kpi-card-location p,
+.kpi-card-operational p,
 .kpi-card-behavior p {
   font-size: 1em;
   font-weight: bold;
   color: #2c3e50;
 }
 
-.charts-container-behavior {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 5px;
-  margin-top: 30px;
-  width: 100%; /* Ensure the container takes up full width */
-  height: 100%; /* Ensure the container takes up full height */
-}
-
-.chart-box-behavior {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  max-width: none; /* Remove max-width to ensure grid items stretch equally */
-}
-
-.chart-box-behavior h2 {
-  margin-bottom: 15px;
-  color: #3498db;
-  font-size: 1.4rem;
-}
-
-
-
-
-
-
-.kpi-card {
-  background: #ffffff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  min-height: 200px;
-}
-
-.kpi-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  background-color: #ecf7f4;
-}
-
-.kpi-card i {
-  font-size: 2.5em;
-  color: #1abc9c;
-  margin-bottom: 15px;
-}
-
-.kpi-card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #3498db;
-  font-weight: 700;
-  text-transform: capitalize;
-}
-
-.kpi-card p {
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 /* Charts */
-.charts-container {
+.charts-container,
+.charts-container-customer,
+.charts-container-policy,
+.charts-container-claim,
+.charts-container-incident,
+.charts-container-vehicle,
+.charts-container-demographic,
+.charts-container-location,
+.charts-container-operational,
+.charts-container-behavior {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
 
-.chart-box {
+.chart-box,
+.chart-box-customer,
+.chart-box-policy,
+.chart-box-claim,
+.chart-box-incident,
+.chart-box-vehicle,
+.chart-box-demographic,
+.chart-box-location,
+.chart-box-operational,
+.chart-box-behavior {
   background: #ffffff;
   border: 1px solid #e0e4e8;
   border-radius: 12px;
@@ -1019,7 +179,16 @@ h1 {
   max-width: 600px;
 }
 
-.chart-box h2 {
+.chart-box h2,
+.chart-box-customer h2,
+.chart-box-policy h2,
+.chart-box-claim h2,
+.chart-box-incident h2,
+.chart-box-vehicle h2,
+.chart-box-demographic h2,
+.chart-box-location h2,
+.chart-box-operational h2,
+.chart-box-behavior h2 {
   margin-bottom: 15px;
   color: #3498db;
   font-size: 1.4rem;
@@ -1083,28 +252,6 @@ h1 {
 .navigate-button:hover {
   background-color: #16a085;
   transform: translateY(-3px);
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .kpi-cards,
-  .charts-container {
-    grid-template-columns: 1fr;
-  }
-
-  .kpi-card {
-    min-height: 180px;
-  }
-
-  .chart-box {
-    width: 100%;
-    height: auto;
-  }
-
-  .chart-placeholder {
-    height: auto;
-  }
 }
 
 /* Tabs Container */
@@ -1173,11 +320,19 @@ h1 {
   max-height: 500px; /* Adjust as necessary */
 }
 
-
 /* List Container (No longer necessary with flex) */
 
 /* List Items (Flexbox styling) */
-.kpi-card ul { /* Target the ul directly within the kpi-card */
+.kpi-card ul,
+.kpi-card-customer ul,
+.kpi-card-policy ul,
+.kpi-card-claim ul,
+.kpi-card-incident ul,
+.kpi-card-vehicle ul,
+.kpi-card-demographic ul,
+.kpi-card-location ul,
+.kpi-card-operational ul,
+.kpi-card-behavior ul {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap into multiple lines if needed */
     gap: 10px;
@@ -1186,13 +341,22 @@ h1 {
     margin: 0;
 }
 
-.kpi-card li { 
+.kpi-card li,
+.kpi-card-customer li,
+.kpi-card-policy li,
+.kpi-card-claim li,
+.kpi-card-incident li,
+.kpi-card-vehicle li,
+.kpi-card-demographic li,
+.kpi-card-location li,
+.kpi-card-operational li,
+.kpi-card-behavior li {
     flex: 1 0 150px; /* Adjust the 150px to control item width */
     padding: 5px 10px;
     border: 1px solid #ddd;
-    border-radius: 5px; 
+    border-radius: 5px;
     background-color: #f9f9f9; /* Optional: Add background color */
-} 
+}
 
 /* List Item Hover Effect */
 .list-item:hover {
@@ -1328,3 +492,134 @@ button[type="submit"] {
   margin-left: 10px;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kpi-cards,
+  .charts-container,
+  .kpi-cards-customer,
+  .kpi-cards-policy,
+  .kpi-cards-claim,
+  .kpi-cards-incident,
+  .kpi-cards-vehicle,
+  .kpi-cards-demographic,
+  .kpi-cards-location,
+  .kpi-cards-operational,
+  .kpi-cards-behavior {
+    grid-template-columns: 1fr; /* Make all KPI card grids single column */
+  }
+
+  .kpi-card,
+  .kpi-card-customer,
+  .kpi-card-policy,
+  .kpi-card-claim,
+  .kpi-card-incident,
+  .kpi-card-vehicle,
+  .kpi-card-demographic,
+  .kpi-card-location,
+  .kpi-card-operational,
+  .kpi-card-behavior {
+    min-height: 180px; /* Adjust card height if needed */
+  }
+
+  .chart-box,
+  .chart-box-customer,
+  .chart-box-policy,
+  .chart-box-claim,
+  .chart-box-incident,
+  .chart-box-vehicle,
+  .chart-box-demographic,
+  .chart-box-location,
+  .chart-box-operational,
+  .chart-box-behavior {
+    width: 100%; /* Make charts responsive */
+    height: auto;
+  }
+
+  .chart-placeholder {
+    height: auto; /* Make chart placeholders responsive */
+  }
+
+  /* Adjust Tab Styles */
+  .tabs {
+    flex-direction: column; /* Stack tabs vertically */
+  }
+
+  .tab-button {
+    width: 100%; /* Make tabs take full width */
+    text-align: left; /* Align tab text to the left */
+    border-bottom: 1px solid #ddd; /* Add bottom border to each tab */
+    border-radius: 0; /* Remove rounded corners */
+  }
+
+  .tab-button:last-child {
+    border-bottom: none; /* Remove bottom border from the last tab */
+  }
+
+  /* Adjust Button Container */
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-start; /* Align buttons to the left */
+  }
+
+  .button-group {
+    flex-direction: column; /* Stack buttons vertically within the group */
+  }
+
+  .navigate-button,
+  .filter-button {
+    margin-right: 0; /* Remove margin-right for vertically stacked buttons */
+    margin-bottom: 10px; /* Add margin-bottom for vertical spacing */
+  }
+
+  .filter-container {
+    flex-direction: column; /* Stack filter form elements vertically */
+    width: 100%;
+  }
+
+  .date-range-info {
+    margin-bottom: 10px;
+  }
+
+  .filter-container label {
+    margin-right: 0;
+    display: block; /* Make labels appear on their own line */
+    margin-bottom: 5px;
+  }
+
+  .filter-container input[type="date"] {
+    width: 100%;
+  }
+
+  .filter-container button[type="submit"] {
+    width: 100%;
+  }
+
+  .reset-button {
+    display: block;
+    margin: 10px 0;
+    width: fit-content;
+  }
+
+  /* Adjust Chart Placeholder for Smaller Screens */
+  .chart-placeholder {
+    max-height: 200px; /* Adjust as needed */
+  }
+}
+
+/* For Even Smaller Screens (e.g., Mobile Phones) */
+@media (max-width: 480px) {
+  .kpi-card,
+  .kpi-card-customer,
+  .kpi-card-policy,
+  .kpi-card-claim,
+  .kpi-card-incident,
+  .kpi-card-vehicle,
+  .kpi-card-demographic,
+  .kpi-card-location,
+  .kpi-card-operational,
+  .kpi-card-behavior {
+    min-height: 150px; /* Further adjust card height */
+  }
+
+  /* Further reduce font sizes or adjust other elements if needed */
+}
