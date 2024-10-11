@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'fraud_detection.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgresql://detectiondb_user:I41uuT97m6Z6uycngJGhcJ5bEgVJdumY@dpg-cqt0udrqf0us7395f8lg-a.oregon-postgres.render.com/detectiondb')
+        os.environ.get('DATABASE_URL', 'postgresql://detectiondb_x6kc_user:uO5v6p3BJSFuQQAx0GkS0u3Oinumw0yi@dpg-cs4j8e5svqrc738dd370-a.oregon-postgres.render.com/detectiondb_x6kc')
     )
 }
 
